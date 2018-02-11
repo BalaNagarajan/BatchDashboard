@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- Include the poly fill -->
+<script src="js/bower_components/webcomponentsjs/webcomponents.min.js"></script>
+
+<!-- use html import to bring in our custom components -->
+<link rel="import" href="elements/greeting-display.html"></link>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+    	  
+    	  
+    	//  var dataObj = new google.visualization.DataTable();
+    	  
+    	  
+
+        var data = google.visualization.arrayToDataTable([
+          ['DEPT NAME', 'STUD COUNT'],
+          ['MATHS',     126],
+          ['SCIENCE',      360],
+          ['ARTS',  188],
+          ['COMMERCE', 331],
+         
+        ]);
+
+        var options = {
+          title: 'Students By Department'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+</head>
+<body>
+	<center><greeting-display></greeting-display></center>
+     <div id="piechart" style="width: 900px; height: 500px;"></div>
+
+<div>
+
+
+<h1>Students By Department</h1>
+    <table>
+      <tr>
+      	<th>Student Count</th>
+      	<th>Dept Name</th>
+      </tr>
+      <tr th:each="studDept,iterationStatus  : ${studDeptList}">
+        <td th:text="${studDept.studCount}"></td>
+        <td th:text="${studDept.deptName}"></td>
+      </tr>
+    </table>
+
+
+</div>
+
+</body>
+
+</html>
